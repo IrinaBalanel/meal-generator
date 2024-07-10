@@ -1,0 +1,332 @@
+/*TABLE OF CONTENTS*/
+    /*GENERAL*/
+    /*HOME PAGE*/
+    /*MEAL CARD*/
+        /*CARD FRONT SIDE*/
+        /*CARD FLIP*/
+        /*CARD BACK SIDE*/
+    /*SIDE MENU*/
+    /*FULL MENU PAGE*/
+    /*BUTTONS EFFECTS*/
+    /*ALERT*/
+
+@import url('https://fonts.googleapis.com/css2?family=Nerko+One&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+/*GENERAL*/
+body {
+    font-family: 'Open Sans', 'sans-serif';
+    font-weight: 400;
+    font-size: 1em;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Nerko One', 'sans-serif';
+    font-size: 42px;
+    margin: 0;
+    padding: 10px;
+}
+
+h2 {
+    margin: 0px;
+    padding-top: 20px;
+    padding-top: 10px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+h3 {
+    margin: 1.2em;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/*HOME PAGE*/
+#text-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.app-description p{
+    padding: 0;
+    margin: 0;
+}
+
+.app-description {
+    width: 50%;
+    margin: 0;
+    padding: 0;
+}
+
+#meal-types {
+    font-family: 'Open Sans', 'sans-serif';
+    margin: 1em;
+    padding: 10px 1em;
+    width: 20%;
+    max-width: 500px;
+    min-width: 140px;
+	border: 2px solid #c67e11;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 4px 4px 9px rgba(0, 0, 0, 0.2);
+}
+
+#btn-generate {
+    font-family: 'Open Sans', 'sans-serif';
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    background-color: #FFC978;
+    border: none;
+    border-radius: 5px;
+    padding: 14px 4.3em;
+    max-width: 500px;
+    min-width: 170px;
+    width: 100%;
+    transition: 0.2s all;
+}
+
+#btn-add-to-menu {
+    font-family: 'Open Sans', 'sans-serif';
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    background-color: #FFC978;
+    border: none;
+    border-radius: 5px;
+    padding: 14px 3.3em;
+    width: 100%;
+    margin-left: 10px;
+    transition: 0.2s all;
+}
+
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+
+
+/*MEAL CARD*/
+/*CARD FRONT SIDE*/
+
+#menu{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content:center;
+    align-content:flex-start;
+    gap: 10px;
+}
+
+.addMargins{
+    margin-bottom:480px;
+    margin-right: 420px;
+}
+
+/*CARD FLIP*/
+.card {
+    perspective: 1000px; /* Allows for 3D effects */
+}
+
+
+.card-front, .card-back{
+    background: #fffcec;
+    border-radius: 5px;
+	text-align: center;
+	width: 430px;
+    height: 470px;
+    padding: 0;
+    box-shadow: 4px 4px 9px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    backface-visibility: hidden; /* Ensures the back side is hidden when flipped */
+    transition: transform 0.6s; /* Smooth transition for the flip effect */
+}
+  
+.card-back {
+    transform: rotateY(180deg); /* Initially flipped to the back */
+}
+  
+/* This class is added to the card when it should flip */
+.flipped .card-front{
+    transform: rotateY(180deg);
+}
+  
+.flipped .card-back {
+    transform: rotateY(0deg);
+}
+
+  
+img {
+    width: 45%;
+    border-radius: 5px;
+}
+
+p {
+    padding: 1em 3em;
+    margin: 0;
+}
+
+#btn-container, #one-btn-container, #two-btn-container, #three-btn-container{
+    font-size: 16px;
+    position: absolute;
+    margin-left: 350px;
+}
+
+.inline {
+    display: flex;
+    justify-content: center;
+}
+
+#meal-name, #one-meal-name, #two-meal-name, #three-meal-name{
+    flex-grow: 2;
+}
+
+a {
+    text-decoration: none;
+}
+
+/*CARD BACK SIDE*/
+
+#btn-get-back, #one-btn-get-back, #two-btn-get-back, #three-btn-get-back{
+    font-size: 16px;
+    position: absolute;
+    margin-right: 350px;
+}
+
+
+#instructions, #one-instructions, #two-instructions, #three-instructions{
+    text-align: left;
+}
+
+#meal-card-back h4, #one-meal-card-back h4, #two-meal-card-back h4,#three-meal-card-back h4 {
+    flex-grow: 2;
+}
+
+h4{
+    margin-bottom: 0;
+}
+
+
+/*SIDE MENU*/
+#small-menu {
+    width: auto;
+    height: auto;
+    border-left: 5px solid #FFC978;
+    background-color: #fffcec;
+    border-radius: 5px;
+    box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.2);
+}
+
+#small-menu p{
+    text-align: left;
+    padding: 15px;
+    margin: 0;
+}
+
+#side-menu-view {
+    position: absolute;
+    left: 1000px;
+    right:auto;
+    margin-right: 20px;
+}
+
+#btn-show-menu {
+    font-family: 'Open Sans', 'sans-serif';
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    background-color: #FFC978;
+    border: none;
+    border-radius: 5px;
+    padding: 14px 1em;
+    width: 50%;
+    transition: 0.2s all;
+}
+
+#btn-cancel-menu{
+    font-family: 'Open Sans', 'sans-serif';
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    background-color: #FFC978;
+    border: none;
+    border-radius: 5px;
+    padding: 14px 1.5em;
+    width: 50%;
+    transition: 0.2s all;
+}
+
+#side-menu-buttons{
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    width: auto;
+    margin-top: 20px;
+}
+
+
+/*FULL MENU PAGE*/
+#btn-gen-new-menu{
+    font-family: 'Open Sans', 'sans-serif';
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    background-color: #FFC978;
+    border: none;
+    border-radius: 5px;
+    padding: 14px 2.5em;
+    width: 100%;
+    transition: 0.2s all;
+}
+
+#all-meals{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 5px;
+    margin-left: 30px;
+    margin-right: auto;
+}
+
+/* #all-meals{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    gap: 480px;
+} */
+
+#one-meal-card, #two-meal-card, #three-meal-card{
+    padding: 20px 5px;
+    width: auto;
+}
+
+.full-menu-page h2{
+    padding-top: 20px;
+}
+
+
+/*BUTTONS EFFECTS*/
+#btn-generate:hover,
+#btn-add-to-menu:hover,
+#btn-show-menu:hover,
+#btn-cancel-menu:hover,
+#btn-gen-new-menu:hover{
+    background-color: #ffb54e;
+}
+
+#btn-generate:active,
+#btn-add-to-menu:active,
+#btn-show-menu:active,
+#btn-cancel-menu:active,
+#btn-gen-new-menu:active{
+    transform: scale(0.98);
+}
+
+
+
+#alert {
+    display: none;
+    padding: 0px 15px;
+    color: red;
+}
