@@ -16,5 +16,11 @@ Designed and built the Meal Generator project using JavaScript DOM manipulation,
 3. Flip Animation: Click on a More button on a meal card to see it flip and reveal detailed recipe instructions.
 4. Save Favorites: Save preferred recipes to your favorites list for easy access later.
 
+## Demo
+[Meal Generator](https://meal-generator.irinabalanel.com/)
+
+## More projects
+Explore more of my work on my portfolio: [irinabalanel.com](https://irinabalanel.com/)
+
 ## Frames
 <img src="frames.png" width="600px">
