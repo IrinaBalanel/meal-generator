@@ -1,0 +1,59 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  IMAGE_REPOSITORY: "$CI_REGISTRY_IMAGE"
+  IMAGE_TAG: "$CI_COMMIT_SHA"
+
+build:image:
+  stage: build
+  image: docker:27.5.1
+  services:
+    - docker:27.5.1-dind
+  variables:
+    DOCKER_HOST: tcp://docker:2376
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
+  script:
+    - docker build -t "$IMAGE_REPOSITORY:$IMAGE_TAG" -t "$IMAGE_REPOSITORY:main" .
+    - docker push "$IMAGE_REPOSITORY:$IMAGE_TAG"
+    - docker push "$IMAGE_REPOSITORY:main"
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+deploy:static:
+  stage: deploy
+  image: alpine:3.21
+  before_script:
+    - apk add --no-cache openssh-client
+    - install -m 700 -d ~/.ssh
+    - echo "$CADDY_SSH_PRIVATE_KEY_B64" | base64 -d > ~/.ssh/id_ed25519
+    - chmod 600 ~/.ssh/id_ed25519
+    - ssh-keyscan -H "$CADDY_DEPLOY_HOST" >> ~/.ssh/known_hosts
+  script:
+    - |
+      set -euo pipefail
+      tar -czf site.tar.gz \
+        --exclude-vcs \
+        --exclude='.github' \
+        --exclude='Dockerfile' \
+        --exclude='docker-compose.yml' \
+        --exclude='.gitlab-ci.yml' \
+        .
+      scp site.tar.gz "${CADDY_DEPLOY_USER}@${CADDY_DEPLOY_HOST}:/tmp/meal-generator-${CI_COMMIT_SHA}.tar.gz"
+      ssh "${CADDY_DEPLOY_USER}@${CADDY_DEPLOY_HOST}" "
+        set -euo pipefail
+        target=/opt/caddy/www/irinabalanel/meal-generator
+        tmp=\"\${target}.new.${CI_COMMIT_SHA}\"
+        rm -rf \"\$tmp\"
+        mkdir -p \"\$tmp\"
+        tar -xzf /tmp/meal-generator-${CI_COMMIT_SHA}.tar.gz -C \"\$tmp\"
+        rm -f /tmp/meal-generator-${CI_COMMIT_SHA}.tar.gz
+        rm -rf \"\$target\"
+        mv \"\$tmp\" \"\$target\"
+      "
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual

@@ -1,0 +1,14 @@
+services:
+  meal_generator:
+    image: ${IMAGE:-meal-generator:latest}
+    build:
+      context: .
+    ports:
+      - "${APP_PORT:-8083}:80"
+    restart: unless-stopped
+    networks:
+      - meal_generator
+
+networks:
+  meal_generator:
+    name: meal_generator
