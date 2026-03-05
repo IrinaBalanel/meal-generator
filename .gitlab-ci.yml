@@ -31,7 +31,7 @@ deploy:static:
     - |
       set -euo pipefail
       tar -czf site.tar.gz \
-        --exclude-vcs \
+        --exclude='.git' \
         --exclude='.github' \
         --exclude='Dockerfile' \
         --exclude='docker-compose.yml' \
